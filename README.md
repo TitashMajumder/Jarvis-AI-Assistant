@@ -142,7 +142,7 @@ python main.py
 
 ---
 🙏 Acknowledgements
-YouTube tutorial by Kaushik Shresth=
+YouTube tutorial by Kaushik Shresth
 OpenAI for ChatGPT assistance
 Picovoice for wake word detection
 Python community for libraries and inspiration
