@@ -1,0 +1,16 @@
+# Ignore everything by default
+*
+# ✅ Allow these essential files and folders
+!.gitignore
+!README.md
+!requirements.txt
+!main.py
+!Backend/
+!Frontend/
+!Data/
+!LICENSE
+# 🔒 Ignore sensitive or unnecessary files
+.env
+.cache
+*.pyc
+__pycache__/
