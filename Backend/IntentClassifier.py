@@ -1,3 +1,4 @@
+import re
 def detect_intent(query: str):
      query = query.lower().strip()
 
@@ -30,6 +31,19 @@ def detect_intent(query: str):
           return "memory_read"
      elif "forget" in query:
           return "memory_forget"
+     
+     # VSCODE AUTOMATION
+     elif "open terminal" in query.lower() and any(kw in query.lower() for kw in ["vs code", "vscode", "code", "visual studio code"]):
+          return "open_vscode_terminal"
+
+     elif "open" in query.lower() and re.search(r"\b[\w\-]+\.\w+\b", query):
+          return f"open_specific_file:{query}"
+
+     elif "create" in query and "." in query:
+          return f"create_generic_file:{query}"
+
+     elif "run" in query.lower() and "." in query:
+          return f"run_specific_file:{query}"
 
      # MULTI-APP HANDLING (open / close)
      elif "open" in query:

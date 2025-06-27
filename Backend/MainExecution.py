@@ -5,14 +5,25 @@ from Backend.Chatbot import ChatBot
 from Backend.UserMemory import remember, recall, forget
 from Backend.System import System
 from Backend.TextToSpeech import TextToSpeech
+import Backend.VSCodeAutomation as VSCodeAutomation
 import string
 import asyncio
+import time
+import os
+import re
 
 APP_NAME_MAP = {
     "file explorer": "File Explorer",
     "whatsapp": "whatsapp",
     "spotify": "spotify"
 }
+
+def extract_filename(query):
+     # Match file name or path with extension
+     match = re.search(r'[\w\-./\\]+?\.\w+', query)
+     if match:
+          return match.group().strip("\"' ")
+     raise FileNotFoundError("No valid filename found in the query.")
 
 async def ExecuteQuery(query: str) -> str:
      intents = detect_intent(query)
@@ -92,6 +103,33 @@ async def ExecuteQuery(query: str) -> str:
           elif intent == "memory_forget":
                key = query.replace("forget", "").strip()
                return forget(key), "task"
+
+          elif intent == "open_vscode_terminal":
+               VSCodeAutomation.open_terminal_in_vscode()
+               return "Opening terminal in VS Code.", "task"
+
+          elif intent.startswith("create_generic_file"):
+               file_query = intent.split(":", 1)[1]
+               filename = extract_filename(file_query)
+               response = VSCodeAutomation.create_and_open_file(filename)
+               return response, "task"
+
+          elif intent.startswith("open_specific_file"):
+               file_query = intent.split(":", 1)[1].strip()
+               try:
+                    filename = extract_filename(file_query)
+                    response = VSCodeAutomation.open_file_in_vscode(filename)
+                    return response, "task"
+               except FileNotFoundError as e:
+                    return str(e), "error"
+               except Exception as e:
+                    return f"Failed to open file due to: {str(e)}", "error"
+
+          elif intent.startswith("run_specific_file"):
+               _, file_query = intent.split(":", 1)
+               filename = extract_filename(file_query)
+               response = VSCodeAutomation.open_and_run_file(filename)
+               return response, "task"
 
           elif intent == "open_app":
                app_name = query.replace("open", "").strip()

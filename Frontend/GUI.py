@@ -183,8 +183,6 @@ class ChatSection(QWidget):
           except Exception as e:
                print(f"[addMessage ERROR] {e}")
 
-
-
 class InitialScreen(QWidget):
      def __init__(self, parent=None):
           super().__init__(parent)
@@ -267,15 +265,6 @@ class InitialScreen(QWidget):
           pixmap = QPixmap(path)
           new_pixmap = pixmap.scaled(width, height)
           self.icon_label.setPixmap(new_pixmap)
-
-     # def toggle_icon(self, event=None):
-     #      if self.toggled:
-     #           self.load_icon(GraphicsDirectoryPath('Mic_on.png'), 60, 60)
-     #           wake_detector.start_listening()
-     #      else:
-     #           self.load_icon(GraphicsDirectoryPath('Mic_off.png'), 60, 60)
-     #           wake_detector.stop_listening()
-     #      self.toggled = not self.toggled
 
 class MessageScreen(QWidget):
      def __init__(self, parent=None):
