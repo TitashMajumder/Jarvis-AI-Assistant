@@ -790,5 +790,13 @@
     {
         "role": "assistant",
         "content": "You're referring to the index.html file!"
+    },
+    {
+        "role": "user",
+        "content": "how are you?"
+    },
+    {
+        "role": "assistant",
+        "content": "I'm doing well, thanks for asking!"
     }
 ]
