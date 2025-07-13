@@ -72,9 +72,12 @@ JARVIS/
 ```bash
 git clone https://github.com/your-username/JARVIS-Assistant.git
 cd JARVIS-Assistant
+```
 
 ### 2. Install Dependencies
+```bash
 pip install -r requirements.txt
+```
 
 ### 3. Configure .env File
 Username=Titash
